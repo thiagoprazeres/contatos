@@ -7,11 +7,7 @@ import info.assessoriablue.contatos.excepttion.ContatosNotFoundException;
 import info.assessoriablue.contatos.mapper.ContatosMapper;
 import info.assessoriablue.contatos.repository.ContatosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,6 +46,16 @@ public class ContatosService {
                 .orElseThrow(() ->new ContatosNotFoundException(id));
         return contatosMapper.toDTO(contatos);
 
+    }
+
+    public void deleteById(Long id) throws ContatosNotFoundException {
+        verifyIfExists(id);
+        contatosRepository.deleteById(id);
+    }
+
+    private Contatos verifyIfExists(Long id) throws ContatosNotFoundException {
+        return contatosRepository.findById(id)
+                .orElseThrow(() ->new ContatosNotFoundException(id));
     }
 
 }

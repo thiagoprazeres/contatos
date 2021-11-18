@@ -40,4 +40,10 @@ public class ContatosController {
         return contatosService.findById(id);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) throws ContatosNotFoundException {
+        contatosService.deleteById(id);
+    }
+
 }
