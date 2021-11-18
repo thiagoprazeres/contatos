@@ -3,6 +3,7 @@ package info.assessoriablue.contatos.service;
 import info.assessoriablue.contatos.dto.ContatosDTO;
 import info.assessoriablue.contatos.dto.MessageResponseDTO;
 import info.assessoriablue.contatos.entity.Contatos;
+import info.assessoriablue.contatos.excepttion.ContatosNotFoundException;
 import info.assessoriablue.contatos.mapper.ContatosMapper;
 import info.assessoriablue.contatos.repository.ContatosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,13 @@ public class ContatosService {
         return allContatos.stream()
                 .map(contatosMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public ContatosDTO findById(Long id) throws ContatosNotFoundException {
+        Contatos contatos = contatosRepository.findById(id)
+                .orElseThrow(() ->new ContatosNotFoundException(id));
+        return contatosMapper.toDTO(contatos);
+
     }
 
 }

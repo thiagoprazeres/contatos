@@ -3,6 +3,7 @@ package info.assessoriablue.contatos.controller;
 import info.assessoriablue.contatos.dto.ContatosDTO;
 import info.assessoriablue.contatos.dto.MessageResponseDTO;
 import info.assessoriablue.contatos.entity.Contatos;
+import info.assessoriablue.contatos.excepttion.ContatosNotFoundException;
 import info.assessoriablue.contatos.repository.ContatosRepository;
 import info.assessoriablue.contatos.service.ContatosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class ContatosController {
     @GetMapping
     public List<ContatosDTO> listAll(){
         return contatosService.listAll();
+    }
+
+    @GetMapping("/{id}")
+    public ContatosDTO findById(@PathVariable Long id) throws ContatosNotFoundException{
+        return contatosService.findById(id);
     }
 
 }
