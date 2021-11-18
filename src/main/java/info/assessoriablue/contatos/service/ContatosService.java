@@ -6,6 +6,7 @@ import info.assessoriablue.contatos.entity.Contatos;
 import info.assessoriablue.contatos.excepttion.ContatosNotFoundException;
 import info.assessoriablue.contatos.mapper.ContatosMapper;
 import info.assessoriablue.contatos.repository.ContatosRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ContatosService {
 
     private ContatosRepository contatosRepository;
     private final ContatosMapper contatosMapper = ContatosMapper.INSTANCE;
-
-
-    @Autowired
-    public ContatosService(ContatosRepository contatosRepository) {
-        this.contatosRepository = contatosRepository;
-    }
 
     public MessageResponseDTO createContatos(ContatosDTO contatosDTO){
         Contatos contatosToSave = contatosMapper.toModel(contatosDTO);

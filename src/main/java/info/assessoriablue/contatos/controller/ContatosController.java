@@ -6,6 +6,7 @@ import info.assessoriablue.contatos.entity.Contatos;
 import info.assessoriablue.contatos.excepttion.ContatosNotFoundException;
 import info.assessoriablue.contatos.repository.ContatosRepository;
 import info.assessoriablue.contatos.service.ContatosService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +16,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/contatos")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class ContatosController {
 
     private ContatosService contatosService;
-
-    @Autowired
-    public ContatosController(ContatosService contatosService) {
-        this.contatosService = contatosService;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
