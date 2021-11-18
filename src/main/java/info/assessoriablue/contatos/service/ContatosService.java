@@ -25,13 +25,9 @@ public class ContatosService {
     }
 
     public MessageResponseDTO createContatos(ContatosDTO contatosDTO){
-        Contatos contatosToSave = Contatos.builder()
-                .nome(contatosDTO.getNome())
-                .email(contatosDTO.getEmail())
-                .telefone(contatosDTO.getTelefone())
-                .build();
+        Contatos contatosToSave = contatosMapper.toModel(contatosDTO);
         Contatos savedContatos = contatosRepository.save(contatosToSave);
-        return MessageResponseDTO.builder().message("Contato criado com sucesso" + savedContatos.getId()).build();
+        return createMessageResponse(savedContatos.getId(), "Contato criado com sucesso");
     }
 
     public List<ContatosDTO> listAll() {
@@ -42,10 +38,17 @@ public class ContatosService {
     }
 
     public ContatosDTO findById(Long id) throws ContatosNotFoundException {
-        Contatos contatos = contatosRepository.findById(id)
-                .orElseThrow(() ->new ContatosNotFoundException(id));
+        Contatos contatos = verifyIfExists(id);
         return contatosMapper.toDTO(contatos);
 
+    }
+
+    public MessageResponseDTO updateById(Long id, ContatosDTO contatosDTO) throws ContatosNotFoundException {
+        verifyIfExists(id);
+        Contatos contatosToUpdate = contatosMapper.toModel(contatosDTO);
+        contatosToUpdate.setId(id);
+        Contatos updatedContatos = contatosRepository.save(contatosToUpdate);
+        return createMessageResponse(updatedContatos.getId(), " Contato atualizada com ID ");
     }
 
     public void deleteById(Long id) throws ContatosNotFoundException {
@@ -58,4 +61,10 @@ public class ContatosService {
                 .orElseThrow(() ->new ContatosNotFoundException(id));
     }
 
+    private MessageResponseDTO createMessageResponse(Long id, String message) {
+        return MessageResponseDTO
+                .builder()
+                .message(message + id)
+                .build();
+    }
 }

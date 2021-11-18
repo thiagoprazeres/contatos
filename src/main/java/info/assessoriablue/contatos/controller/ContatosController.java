@@ -40,10 +40,14 @@ public class ContatosController {
         return contatosService.findById(id);
     }
 
+    @PutMapping("/{id}")
+    public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody @Valid ContatosDTO contatosDTO) throws ContatosNotFoundException {
+        return contatosService.updateById(id, contatosDTO);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) throws ContatosNotFoundException {
         contatosService.deleteById(id);
     }
-
 }
