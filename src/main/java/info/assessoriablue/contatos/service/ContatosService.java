@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ContatosService {
 
@@ -25,9 +28,20 @@ public class ContatosService {
     }
 
     public MessageResponseDTO createContatos(ContatosDTO contatosDTO){
-        Contatos contatosToSave = contatosMapper.toModel(contatosDTO);
+        Contatos contatosToSave = Contatos.builder()
+                .nome(contatosDTO.getNome())
+                .email(contatosDTO.getEmail())
+                .telefone(contatosDTO.getTelefone())
+                .build();
         Contatos savedContatos = contatosRepository.save(contatosToSave);
         return MessageResponseDTO.builder().message("Contato criado com sucesso" + savedContatos.getId()).build();
+    }
+
+    public List<ContatosDTO> listAll() {
+        List<Contatos> allContatos = contatosRepository.findAll();
+        return allContatos.stream()
+                .map(contatosMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
 }

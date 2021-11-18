@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/contatos")
@@ -29,8 +30,8 @@ public class ContatosController {
     }
 
     @GetMapping
-    public String getContatos(){
-        return "Hello world!!!";
+    public List<ContatosDTO> listAll(){
+        return contatosService.listAll();
     }
 
 }
