@@ -27,21 +27,25 @@ public class ContatosController {
         return contatosService.createContatos(contatosDTO);
     }
 
+    @CrossOrigin
     @GetMapping
     public List<ContatosDTO> listAll(){
         return contatosService.listAll();
     }
 
+    @CrossOrigin
     @GetMapping("/{id}")
     public ContatosDTO findById(@PathVariable Long id) throws ContatosNotFoundException{
         return contatosService.findById(id);
     }
 
+    @CrossOrigin
     @PutMapping("/{id}")
     public MessageResponseDTO updateById(@PathVariable Long id, @RequestBody @Valid ContatosDTO contatosDTO) throws ContatosNotFoundException {
         return contatosService.updateById(id, contatosDTO);
     }
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) throws ContatosNotFoundException {
