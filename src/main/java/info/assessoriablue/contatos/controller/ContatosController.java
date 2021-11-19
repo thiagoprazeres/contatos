@@ -21,6 +21,7 @@ public class ContatosController {
 
     private ContatosService contatosService;
 
+    @CrossOrigin
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MessageResponseDTO createContatos(@RequestBody @Valid ContatosDTO contatosDTO){
