@@ -11,7 +11,7 @@ public interface ContatosMapper {
 
     ContatosMapper INSTANCE = Mappers.getMapper(ContatosMapper.class);
 
-    @Mapping(target = "nome")
+    @Mapping(source = "id", target = "id")
     ContatosDTO toDTO(Contatos contatos);
 
     Contatos toModel(ContatosDTO contatosDTO);

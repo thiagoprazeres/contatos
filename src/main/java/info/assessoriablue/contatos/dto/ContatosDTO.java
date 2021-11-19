@@ -16,6 +16,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class ContatosDTO {
 
+    private Long id;
+
     @NotEmpty
     @Size(min = 2, max = 100)
     private String nome;
